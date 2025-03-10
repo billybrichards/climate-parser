@@ -2,12 +2,21 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { OpenAI } = require('openai');
+const cors = require('cors'); // Add CORS package
 
 // Load environment variables
 dotenv.config();
 
 // Initialize Express app
 const app = express();
+
+// Configure CORS - this will allow requests from any origin
+app.use(cors({
+  origin: '*', // This allows all origins - for production, you should restrict this
+  methods: ['GET', 'POST'], // Allow only the methods you need
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'] // Specify which headers are allowed
+}));
+
 app.use(express.json());
 
 // Set up OpenAI client with API key
