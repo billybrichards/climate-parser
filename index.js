@@ -23,36 +23,30 @@ class ClimateProjectParser {
 
   async extractProjectInfo(text) {
     const prompt = `
-You are an expert parser specialized in extracting structured climate project information from natural language text. Extract and format the details into structured JSON with the following keys:
-
+You are an expert parser specialized in extracting structured climate project information from natural language text. 
+Extract and format the details into structured JSON with these keys:
 - title
 - location
-- area (include units, e.g., hectares)
+- area
 - status
 - methodology
 - certifications (list)
 - sdgs (list)
-- start_date (year)
+- start_date
 - annual_credit_potential (integer)
 - buffer_allocation (percentage integer)
 - saleable_credits (integer)
 - environmental_asset_id
 
-Example Output Format:
-{
-  "title": "",
-  "location": "",
-  "area": "",
-  "status": "",
-  "methodology": "",
-  "certifications": [],
-  "sdgs": [],
-  "start_date": "",
-  "annual_credit_potential": 0,
-  "buffer_allocation": 0,
-  "saleable_credits": 0,
-  "environmental_asset_id": ""
-}
+Additionally, provide:
+1) A short 100–150 word analysis from ChatGPT (key: "analysis").
+2) Preliminary numeric scores (1-10) for "FEASIBILITY", "DIFFICULTY", and "RISK" (keys: "feasibility_score", "difficulty_score", "risk_score").
+3) The absolute minimum input data needed (key: "absolute_minimum_inputs"):
+
+### Absolute Minimum Inputs:
+1. **Project Type** – The category of carbon project
+2. **Location** – Country or region of the project
+3. **Project Scale** – Size metric (e.g., hectares for land projects)
 
 Here is the text to extract from:
 ${text}
@@ -126,6 +120,11 @@ if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`Access the API at http://localhost:${PORT}/`);
+    
+    if (process.env.npm_lifecycle_event === 'test') {
+      console.log('Running in test mode');
+    }
   });
 }
 
