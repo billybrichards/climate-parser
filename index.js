@@ -18,6 +18,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.options('*', cors()); // Handle preflight requests
 
 // Set up OpenAI client with API key
 const client = new OpenAI({
