@@ -10,9 +10,9 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 
-// Configure CORS - this will allow requests from any origin
+// Configure CORS - more secure: allow specific origins including ports 3000, 8080, 8081, and domain changeblock.com
 app.use(cors({
-  origin: '*', // This allows all origins - for production, you should restrict this
+  origin: ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:8081', 'https://changeblock.com'],
   methods: ['GET', 'POST'], // Allow only the methods you need
   allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'] // Specify which headers are allowed
 }));
