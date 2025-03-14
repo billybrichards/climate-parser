@@ -10,9 +10,17 @@ dotenv.config();
 // Initialize Express app
 const app = express();
 
-// Configure CORS - more secure: allow specific origins including ports 3000, 8080, 8081, and domain changeblock.com
+// Configure CORS - more secure: allow specific origins including ports 3000, 3001, 8080, 8081, and domain changeblock.com
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:8080', 'http://localhost:8081', 'https://changeblock.com'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:8080',
+    'http://localhost:8081',
+    'https://changeblock.com',
+    'https://vercel.app',
+    'https://vercel.com'
+  ],
   methods: ['GET', 'POST'], // Allow only the methods you need
   allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key'] // Specify which headers are allowed
 }));
@@ -74,8 +82,17 @@ Provide JSON only.
   }
 }
 
+// Middleware to check API key
+const apiKeyAuth = (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  if (!apiKey || apiKey !== process.env.API_SECRET_KEY) {
+    return res.status(401).json({ error: 'Unauthorized: Invalid API key' });
+  }
+  next();
+};
+
 // Create API endpoint for parsing
-app.post('/api/parse', async (req, res) => {
+app.post('/api/parse', apiKeyAuth, async (req, res) => {
   try {
     const { text } = req.body;
     

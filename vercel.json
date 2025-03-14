@@ -11,7 +11,7 @@
       "src": "/api/(.*)",
       "dest": "/index.js",
       "headers": {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000 http://localhost:3001 http://localhost:8080 http://localhost:8081 https://changeblock.com https://feasibilityapp.vercel.app",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization, X-API-Key"
       }
@@ -20,7 +20,7 @@
       "src": "/(.*)",
       "dest": "/index.js",
       "headers": {
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "http://localhost:3000 http://localhost:3001 http://localhost:8080 http://localhost:8081 https://changeblock.com https://feasibilityapp.vercel.app",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
         "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept, Authorization, X-API-Key"
       }
